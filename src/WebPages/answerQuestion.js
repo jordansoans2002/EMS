@@ -1,5 +1,9 @@
 qsNo=0;
 exam=[{
+  marks:0,
+  duration:1,
+  questions:[
+  {
   input: "",
   multi: false,
   opt: ["a", "b", "c", "d"],
@@ -7,7 +11,7 @@ exam=[{
   req: false,
   selected: null,
   solution: ["a"]
-}, {
+  }, {
   input: "",
   multi: false,
   opt: ["a", "b", "c", "d"],
@@ -15,7 +19,7 @@ exam=[{
   req: false,
   selected: null,
   solution: ["b"]
-}, {
+  }, {
   input: "",
   multi: false,
   opt: ["a", "b", "c", "d"],
@@ -23,7 +27,7 @@ exam=[{
   req: false,
   selected: null,
   solution: ["c"]
-}, {
+  }, {
   input: "",
   multi: false,
   opt: ["a", "b", "c", "d"],
@@ -31,7 +35,7 @@ exam=[{
   req: false,
   selected: null,
   solution: ["d"]
-}, {
+  }, {
   input: "",
   multi: true,
   opt: ["a", "b", "c", "d"],
@@ -39,6 +43,7 @@ exam=[{
   req: false,
   selected: null,
   solution: ["a", "b", "c", "d"]
+  }]
 }];
 
 function setQsNo(){

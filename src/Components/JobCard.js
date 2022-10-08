@@ -2,30 +2,22 @@ import React,{ Component } from 'react';
 import './JobCard.css';
 
 class JobCard extends Component{
-
-    setModalShow() {
-        alert('clicked');
-    }
 	render(){
 		return(
             <>
-                <header>
-                    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"></link>
-                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
-                </header>
-                <div type="button" class="card">
-                    <div class="card-header">
+                <div type="button" className="card">
+                    <div className="card-header">
                         {this.props.jobrole}
                     </div>
 
-                    <div class='flip-card card-body'>
-                        <div class='flip-card-inner'>
+                    <div className='flip-card card-body'>
+                        <div className='flip-card-inner'>
                 
-                            <div class='flip-card-front'>
+                            <div className='flip-card-front'>
                                 {this.props.description}
                             </div>
 
-                            <div class='flip-card-back'>
+                            <div className='flip-card-back'>
                                 Qualifications: {this.props.qualifications}<br></br>
                                 Exam duration: {this.props.duration}<br></br>
                                 Paper pattern: {this.props.pattern}

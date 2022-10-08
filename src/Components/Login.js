@@ -3,9 +3,9 @@ import Button from 'react-bootstrap/Button';
 function Login(props){
     return(
         <>
-            <form method='POST' onSubmit={() => alert('validate credentials')}>
-                <input className='col-md-12' type="text" placeholder='User Name'></input><br></br><br></br>
-                <input className='col-md-12' type='password' placeholder='Password'></input><br></br><br></br>
+            <form className='input-group-lg'>
+                <input className='col-md-10 m-3' type="text" name="username" placeholder='User Name'></input>
+                <input className='col-md-10 m-3' type='password' name="password" placeholder='Password'></input>
                 <Button type='submit' className='primary'>Log in</Button>
             </form>
         </>
