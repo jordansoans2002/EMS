@@ -14,7 +14,7 @@ body{
       background-color:blue;
       color:white;
   }
-  #qsNo{
+  #qNo{
     height:30px;
     float:right;
   }
@@ -25,6 +25,7 @@ body{
   .options{
     border:3px ridge;
     padding:6px;
+    margin: 10px;
     cursor:pointer;
   }
   #question{
