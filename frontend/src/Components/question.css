@@ -1,0 +1,48 @@
+body{
+  padding:10px;
+  font-size:30px;
+      
+}
+#container{
+  border:3px solid blue;
+  margin:auto;
+}
+.header{
+  height:70px;
+  line-height:70px;
+  padding:0px 7px;
+  background-color:blue;
+  color:white;
+}
+#qNo{
+  height:30px;
+  float:right;
+}
+#qs-container{
+  display:flex;
+  padding:10px 0px;
+}
+.options{
+  border:3px ridge;
+  padding:6px;
+  margin: 10px;
+  cursor:pointer;
+}
+#question{
+  text-align:left;
+}
+#ans{
+  margin-top:5px;
+  padding:0px 10px;
+  border:6px groove;
+}
+.move{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+.move:hover{
+  background-color:grey;
+  opacity:45%;
+}
