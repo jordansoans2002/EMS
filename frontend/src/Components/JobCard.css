@@ -1,6 +1,7 @@
 .card{
     width:300px;
     min-height:200px;
+    font-size: 18px;
   }
   .center{
     align-content:left;

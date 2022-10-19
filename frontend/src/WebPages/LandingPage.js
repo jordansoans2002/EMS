@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import JobCard from '../Components/JobCard'
 import LoginModal from '../Components/LoginModal';
@@ -85,7 +86,7 @@ function LandingPage() {
   ]
 
   const [modalShow, setModalShow] = React.useState(false);
-  //const [loggedIn,setLoggedIn] = React.useState(false);
+ // const [loggedIn,setLoggedIn] = React.useState(false);
   
   return (
     <>
@@ -104,6 +105,7 @@ function LandingPage() {
             <hr></hr>
             {company.jobRoles.map((role)=>{
               return(
+                <>
               <div key={role.jobRole} className='col-md mb-3' onClick={() => setModalShow(true)}>
                 <JobCard 
                   jobrole={role.jobRole}
@@ -113,6 +115,8 @@ function LandingPage() {
                   pattern= {role.pattern}
                 />
               </div>
+                <Link to="/exam-details">ExamStartPage</Link>
+              </>
             )})}
           </div>
         );
