@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 
 import LoginModal from "./LoginModal";
@@ -14,9 +15,9 @@ function Nav(){
             />
             <nav className="navbar navbar-expand-sm bg-light">
                 <div className="container-fluid">
-                  <a className="navbar-brand" href="../WebPages/LandingPage">
+                  <Link to="/home" className="navbar-brand">
                     EMS
-                  </a>
+                  </Link>
                   <ul className="navbar-nav">
                     <li className="nav-item">
                       <button id="login-btn" className="btn btn-primary" onClick={() => setModalShow(true)}>Login or Register</button>
