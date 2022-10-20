@@ -12,14 +12,14 @@ function Nav(){
                 show={modalShow}
                 onHide={() => setModalShow(false)}
             />
-            <nav class="navbar navbar-expand-sm bg-light">
-                <div class="container-fluid">
-                  <a class="navbar-brand" href="../WebPages/LandingPage">
+            <nav className="navbar navbar-expand-sm bg-light">
+                <div className="container-fluid">
+                  <a className="navbar-brand" href="../WebPages/LandingPage">
                     EMS
                   </a>
-                  <ul class="navbar-nav">
-                    <li class="nav-item">
-                      <button id="login-btn" class="btn btn-primary" onClick={() => setModalShow(true)}>Login or Register</button>
+                  <ul className="navbar-nav">
+                    <li className="nav-item">
+                      <button id="login-btn" className="btn btn-primary" onClick={() => setModalShow(true)}>Login or Register</button>
                     </li>
                   </ul>
                 </div>

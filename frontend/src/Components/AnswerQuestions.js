@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import './question.css';
+import InfoBar from "./InfoBar";
 
-const exam=
+const exam2=
         {
+            name:"Software",
             marks:0,
-            duration:1,
+            duration:3600,
             questions:[
                 {
                     multi: false,
@@ -38,15 +40,28 @@ const exam=
                     solution: ["a", "b", "c", "d"]
                 }
             ]
-        }
+        };
+
 function AnswerQuestions(props){
+    useEffect(()=>{
+        fetchQuestions();
+    },[]);
+    const [exam,setExam]=React.useState({});
+
+    const fetchQuestions = async() => {
+        const data= await fetch('/exam');
+        const ques= await data.json();
+        setExam(ques);
+        console.log('exam loaded');
+    }
+
     const [qsNo,setQsNo]=React.useState(0);
     console.log(exam);
     //const [question,setQuestion]=React.useState(exam.questions[qsNo]);
     const question=exam.questions[qsNo];
 
     function move(n){
-        if((n==1 && qsNo<exam.questions.length-1) || (n==-1 && qsNo>0))
+        if((n===1 && qsNo<exam.questions.length-1) || (n===-1 && qsNo>0))
             loadQuestion(qsNo+n);
     }
     function loadQuestion(n){
@@ -59,7 +74,7 @@ function AnswerQuestions(props){
     function isSelected(option){
         var selected=question.selected;
         var pos=selected.indexOf(option);
-        if(pos != -1){
+        if(pos !== -1){
             selected.splice(pos,1);
         }
         else
@@ -88,6 +103,7 @@ function AnswerQuestions(props){
     } 
     return(
         <>
+            <InfoBar name={exam.name} time={exam.duration} questions={exam.questions.length}></InfoBar>
             <div id='container' className='col-md-10'>
                 <div className='header'>
                     {props.name}

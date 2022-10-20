@@ -26,7 +26,7 @@ function AddQuestions(props){
 
     function move(n){
         getOptions();
-        if(n==1 && qsNo == exam.questions.length-1 && question.qs != '' ){
+        if(n===1 && qsNo === exam.questions.length-1 && question.qs !== '' ){
             console.log('create blank');
             exam.questions.push({
                 input: "",
@@ -39,7 +39,7 @@ function AddQuestions(props){
             });
             n=qsNo+1;
         }
-        else if((n==1 && qsNo < exam.questions.length-1) || (n==-1 && qsNo>0))
+        else if((n===1 && qsNo < exam.questions.length-1) || (n===-1 && qsNo>0))
             n=qsNo+n;
         else
             n=qsNo;

@@ -17,7 +17,7 @@ function LoginModal(props) {
         >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            <Nav variant="pills" defaultActiveKey="Login" onSelect={(selectedKey) => {setRegister(selectedKey=='Register')}}>
+            <Nav variant="pills" defaultActiveKey="Login" onSelect={(selectedKey) => {setRegister(selectedKey==='Register')}}>
                 <Nav.Item>
                   <Nav.Link eventKey="Login">Login</Nav.Link>
                 </Nav.Item>

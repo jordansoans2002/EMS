@@ -1,14 +1,31 @@
+import React,{useState} from 'react';
 import Button from 'react-bootstrap/Button';
-
+import Axios from 'axios';
 function Register(props){
+    const [username,setUsername]=React.useState("");
+    const [password,setPassword]=React.useState("");
+    const [confPassword,setConfPassword]=React.useState("");
+
+    const registerUser=()=>{
+        if(password===confPassword){
+            Axios.post('http://localhost:5000/register',{
+                username: username,
+                password: password,
+            });
+            console.log('sent from frontend');
+        }
+        else{
+            alert("password is not matching");
+        }
+    }
     return(
         <>
-            <form className='input-group-lg' onSubmit={() => alert('add to database')}>
-                <input className='col-md-10 m-3' type="text" placeholder='User Name'></input>
-                <input className='col-md-10 m-3' type='password' placeholder='Password'></input>
-                <input className='col-md-10 m-3' type='text' placeholder='Confirm Password'></input>
-                <Button type='submit' className='primary'>Register</Button>
-            </form>
+            <div className='input-group-lg' onSubmit={() => alert('add to database')}>
+                <input className='col-md-10 m-3' type="text" placeholder='User Name' onChange={(e)=>setUsername(e.target.value)}></input>
+                <input className='col-md-10 m-3' type='password' placeholder='Password' onChange={(e)=>setPassword(e.target.value)}></input>
+                <input className='col-md-10 m-3' type='text' placeholder='Confirm Password' onChange={(e)=>setConfPassword(e.target.value)}></input>
+                <Button className='primary' onClick={registerUser}>Register</Button>
+            </div>
         </>
     )
 }
