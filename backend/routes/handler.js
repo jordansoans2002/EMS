@@ -55,7 +55,6 @@ app.post("/login",(req,res)=>{
 
 router.get('/home',(req,res)=>{
     var companies=[];
-    
     db.query(
         "SELECT * FROM companies",
         (err,rows,field)=>{
@@ -75,103 +74,16 @@ router.get('/home',(req,res)=>{
                         }
                     });
                     //rolesArr is visble inside the query but not  outside
-                    console.log(rolesArr);
                     companies.push({
                         companyName:rows[i].name,
                         jobRoles:rolesArr
                     });         
                 }
             }
-            console.log(companies);
             res.end(JSON.stringify(companies));
         }
     );
 });
-
-// router.get('/home',(req,res)=>{
-//     const companies=[
-//         {
-//           companyName:'Company 1',
-//           jobRoles:[
-//             {jobRole:'Job Role 1',
-//             description:'Something will be written about this job role. The description will be allotted a max number of characters to fit within the card.' ,
-//             qualifications:'Qualifications required' ,
-//             duration:'1 ' ,
-//             pattern:'mcq'},
-//             {jobRole:'Job Role 2',
-//             description:'Something will be written about this job role. The description will be allotted a max number of characters to fit within the card.' ,
-//             qualifications:'Qualifications required' ,
-//             duration:'1 ' ,
-//             pattern:'mcq'},
-//             {jobRole:'Job Role 3',
-//             description:'Something will be written about this job role. The description will be allotted a max number of characters to fit within the card.' ,
-//             qualifications:'Qualifications required' ,
-//             duration:'1 ' ,
-//             pattern:'mcq'},
-//             {jobRole:'Job Role 4',
-//             description:'Something will be written about this job role. The description will be allotted a max number of characters to fit within the card.' ,
-//             qualifications:'Qualifications required' ,
-//             duration:'1 ' ,
-//             pattern:'mcq'},
-//             {jobRole:'Job Role 5',
-//             description:'Something will be written about this job role. The description will be allotted a max number of characters to fit within the card.' ,
-//             qualifications:'Qualifications required' ,
-//             duration:'1' ,
-//             pattern:'mcq'},
-//             {jobRole:'Job Role 6',
-//             description:'Something will be written about this job role. The description will be allotted a max number of characters to fit within the card.' ,
-//             qualifications:'Qualifications required' ,
-//             duration:'1' ,
-//             pattern:'mcq'}
-//           ]
-//         },
-//         {
-//           companyName:'Company 2',
-//           jobRoles:[
-//             {jobRole:'Job Role 1',
-//             description:'Something will be written about this job role. The description will be allotted a max number of characters to fit within the card.' ,
-//             qualifications:'Qualifications required' ,
-//             duration:'1 hour' ,
-//             pattern:'mcq'},
-//             {jobRole:'Job Role 2',
-//             description:'Something will be written about this job role. The description will be allotted a max number of characters to fit within the card.' ,
-//             qualifications:'Qualifications required' ,
-//             duration:'1 hour' ,
-//             pattern:'mcq'},
-//             {jobRole:'Job Role 3',
-//             description:'Something will be written about this job role. The description will be allotted a max number of characters to fit within the card.' ,
-//             qualifications:'Qualifications required' ,
-//             duration:'1 hour' ,
-//             pattern:'mcq'}
-//           ]
-//         },
-//         {
-//           companyName:'Company 3',
-//           jobRoles:[
-//             {jobRole:'Job Role 1',
-//             description:'Something will be written about this job role. The description will be allotted a max number of characters to fit within the card.' ,
-//             qualifications:'Qualifications required' ,
-//             duration:'1 hour' ,
-//             pattern:'mcq'},
-//             {jobRole:'Job Role 2',
-//             description:'Something will be written about this job role. The description will be allotted a max number of characters to fit within the card.' ,
-//             qualifications:'Qualifications required' ,
-//             duration:'1 hour' ,
-//             pattern:'mcq'},
-//             {jobRole:'Job Role 3',
-//             description:'Something will be written about this job role. The description will be allotted a max number of characters to fit within the card.' ,
-//             qualifications:'Qualifications required' ,
-//             duration:'1 hour' ,
-//             pattern:'mcq'}
-//           ]
-//         }
-//     ];
-//     res.end(JSON.stringify(companies));
-// });
-
-// router.get('/exam-details/:exam',(req,res) => {
-
-// }); 
 
 router.get('/exam',(req,res)=>{
     const exam=
