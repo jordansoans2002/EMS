@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import './question.css';
 import InfoBar from "./InfoBar";
+import { useParams } from "react-router-dom";
 
 const exam2=
         {
@@ -43,13 +44,27 @@ const exam2=
         };
 
 function AnswerQuestions(props){
+    const {id}= useParams();
     useEffect(()=>{
         fetchQuestions();
     },[]);
-    const [exam,setExam]=React.useState({});
+    const [exam,setExam]=React.useState({
+        name:"Exam Name",
+        marks:0,
+        duration:0,
+        questions:[
+            {
+                multi: false,
+                opt: ["Option a", "Option b", "Option c", "Option d"],
+                qs: "Question",
+                selected: [],
+                solution: [""]
+            }
+        ]
+    });
 
     const fetchQuestions = async() => {
-        const data= await fetch('/exam');
+        const data= await fetch('/exam/'+id);
         const ques= await data.json();
         setExam(ques);
         console.log('exam loaded');

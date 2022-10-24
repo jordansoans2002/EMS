@@ -22,7 +22,7 @@ db.connect((err)=>{
 router.get('/home',(req,res)=>{
     var companies=[];
     db.query(
-        "select * from ems.job_roles order by ems.job_roles.company_id",
+        "select * from ems.job_roles join ems.companies on job_roles.company_id=companies.id order by ems.job_roles.company_id;",
         (err,rows,field)=>{
             if(err) console.log(err)
             else{
@@ -30,20 +30,21 @@ router.get('/home',(req,res)=>{
                 for(var i=0;i<=rows.length;i++){
                     if(i==rows.length||(i>0 && rows[i].company_id!=rows[i-1].company_id)){
                         companies.push({
-                            companyName:rows[i-1].company_id,
+                            companyName:rows[i-1].name,
                             jobRoles:arr
                         })
                         arr=[];
                         if(i==rows.length) break;
                     }
                     arr.push({
+                        id:rows[i].role_id,
                         jobRole:rows[i].role_name,
                         description:rows[i].description,
                         qualifications:rows[i].qualifications,
                         duration:rows[i].duration,
                         no_qs:rows[i].no_qs
                     });
-                    
+                
                 }
             }
             res.end(JSON.stringify(companies));
@@ -51,7 +52,25 @@ router.get('/home',(req,res)=>{
     );
 });
 
-router.get('/exam',(req,res)=>{
+//router.get('/exam-details',(req,res)=>console.log("Hello"))
+router.get('/exam-details/:id',(req,res)=>{
+    const roleId=req.params.id;
+    db.query("SELECT * FROM job_roles where role_id=?",[roleId],
+    (err,row,field)=>{
+        if(err) console.log(err);
+        var jobRole={
+            roleName:row[0].role_name,
+            description:row[0].description,
+            qualifications:row[0].qualifications,
+            payScale:[10000,20000]
+        }
+        res.end(JSON.stringify(jobRole));
+    })
+})
+
+router.get('/exam/id',(req,res)=>{
+    const id=req.params.id;
+    db.query("SELECT * FROM exams WHERE exam_id=?")//make database
     const exam={
         marks:0,
         duration:1,

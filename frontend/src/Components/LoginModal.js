@@ -28,7 +28,7 @@ function LoginModal(props) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {register? <Register></Register> :  <Login></Login>}
+          {register? <Register setlogin={props.setlogin}></Register> :  <Login setlogin={props.setlogin} destination={props.destination}></Login>}
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={props.onHide}>Close</Button>

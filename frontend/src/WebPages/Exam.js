@@ -7,7 +7,7 @@ import AnswerQuestions from "../Components/AnswerQuestions";
 //     duration:"3600",
 //     questions:5
 // }
-function ExamPage(){
+function Exam(){
     // useEffect(()=>{
     //     fetchQuestions();
     // },[]);
@@ -27,4 +27,4 @@ function ExamPage(){
     );
 }
 
-export default ExamPage;
+export default Exam;
