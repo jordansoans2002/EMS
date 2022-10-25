@@ -44,7 +44,6 @@ router.get('/home',(req,res)=>{
                         duration:rows[i].duration,
                         no_qs:rows[i].no_qs
                     });
-                
                 }
             }
             res.end(JSON.stringify(companies));
@@ -52,7 +51,6 @@ router.get('/home',(req,res)=>{
     );
 });
 
-//router.get('/exam-details',(req,res)=>console.log("Hello"))
 router.get('/exam-details/:id',(req,res)=>{
     const roleId=req.params.id;
     db.query("SELECT * FROM job_roles where role_id=?",[roleId],
@@ -62,7 +60,7 @@ router.get('/exam-details/:id',(req,res)=>{
             roleName:row[0].role_name,
             description:row[0].description,
             qualifications:row[0].qualifications,
-            payScale:[10000,20000]
+            payScale:row[0].pay_scale.split(',')
         }
         res.end(JSON.stringify(jobRole));
     })
@@ -75,21 +73,21 @@ router.get('/exam/:id',(req,res)=>{
         if(err) console.log(err);
         var questions=[];
         for(var i=0;i<rows.length;i++){
-            //var opt=rows[i].
             questions.push({
                 opt:[rows[i].a,rows[i].b,rows[i].c,rows[i].d],
                 qs:rows[i].question,
                 solution:rows[i].solution.split("",4),
-                multi:false,
-                selected:[]
+                multi:rows[i].length>1,
+                selected:[],
+                marks:rows[i].marks
             });
         }
         const exam={
+            name:rows[0].exam_name,
             marks:5,
             duration:rows[0].duration,
             questions:questions
         }
-        console.log(exam);
         res.end(JSON.stringify(exam));
     })//make database
     // const exam={
@@ -108,37 +106,16 @@ router.get('/exam/:id',(req,res)=>{
     
 })
 
-//app.post("/register",(req,res)=>{
-    //     const username = req.body.username;
-    //     const password = req.body.password;
-    
-    //     db.query(
-    //         "SELECT * FROM users WHERE username=? and password=?",[username,password],
-    //         (err,result,field)=>{
-    //             if(result==0){
-    //                 db.query(
-    //                     "INSERT INTO users (username,password) VALUES (?,?)",[username,password],
-    //                     (err,res)=> {
-    //                         if(err) console.log(err);
-    //                         else send(res);
-    //                     }
-    //                 );
-    //             }
-    //         }
-    //     );
-    // });
-                
-    // app.post("/login",(req,res)=>{
-    //     const username = req.body.username;
-    //     const password = req.body.password;
-    //     console.log(username,password);
-    //     db.query(
-    //         "SELECT * FROM users WHERE username=? and password=?",[username,password],
-    //         (err,result,field)=> {
-    //             if(err) console.log(err);
-    //             else console.log(result);
-    //         }
-    //     );
-    // })
+router.get('/result/:id',(req,res)=>{
+    const exam_id=req.params.id;
+    db.query("SELECT marks FROM results where user_id=? and exam_id=?",[2,exam_id],
+    (err,rows,fields)=>{
+        var result;
+        if(err) console.log(err);
+        else if(rows.length>0)
+            result=rows[0].marks;
+        res.end(JSON.stringify(result));
+    })
+})
 
 module.exports=router;

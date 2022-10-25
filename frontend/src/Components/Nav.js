@@ -20,7 +20,19 @@ function Nav(){
                   </Link>
                   <ul className="navbar-nav">
                     <li className="nav-item">
-                      <button id="login-btn" className="btn btn-primary" onClick={() => setModalShow(true)}>Login or Register</button>
+                      {
+                        (localStorage.getItem('userid')==null)?
+                          <button id="login-btn" className="btn btn-primary" onClick={() => setModalShow(true)}>Login or Register</button>:
+                          <div className="dropdown">
+                            <button type="button" className="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+                              User
+                            </button>
+                            <ul className="dropdown-menu">
+                              <li><Link to="/profile" className="dropdown-item">Profile</Link></li>
+                              <li><a className="dropdown-item" onClick={()=>localStorage.removeItem('userid')}>Sign out</a></li>
+                            </ul>
+                          </div>
+                      }
                     </li>
                   </ul>
                 </div>

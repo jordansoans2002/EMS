@@ -7,13 +7,18 @@ function Login(props){
     const [username,setUsername]=React.useState("");
     const [password,setPassword]=React.useState("");
 
-    const loginUser= async ()=>{
+    function loginUser(e){
         Axios.post('http://localhost:5000/login',{
             username: username,
             password: password
-        }).then(res=>{
-            props.setlogin(res.data.valid);
-            console.log(res.data.valid);
+        }).then((res)=>{
+            var valid=res.data.valid;
+            if(valid)
+                localStorage.setItem('userid',res.data.id);
+            if(!res.data.valid){
+                e.preventDefault();
+                alert("invalid username password");
+            }
         });
     }
     return(
@@ -21,7 +26,7 @@ function Login(props){
             <div className='input-group-lg'>
                 <input className='col-md-10 m-3' type="text" name="username" placeholder='User Name' onChange={(e)=>setUsername(e.target.value)}></input>
                 <input className='col-md-10 m-3' type='password' name="password" placeholder='Password' onChange={(e)=>setPassword(e.target.value)}></input>
-                <Link to={"/exam-details/"+props.destination} className='btn btn-primary' onClick={loginUser}>Log in</Link>
+                <Link to={(props.destination==null)?"/home":"/exam-details/"+props.destination} className='btn btn-primary' onClick={(e)=>loginUser(e)}>Log in</Link>
             </div>
         </>
     )

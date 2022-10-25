@@ -57,15 +57,54 @@ app.post("/login",(req,res)=>{
     db.query(
         "SELECT * FROM users WHERE username=? and password=?",[username,password],
         (err,result,field)=> {
-            if(err) console.log(err);
+            if(err) console.log('error');
             else{
-                console.log(result[0].username,result[0].password);
-                if(result[0].username==username&&result[0].password==password)
-                //if(result==1)
-                    res.send({valid:true});
+                if(result.length>0 &&result[0].username==username&&result[0].password==password)
+                    res.send({valid:true,id:result[0].id});
                 else
                     res.send({valid:false});
             }
         }
     );
+});
+
+app.post("/exam",(req,res)=>{
+    const user_id=req.body.user_id;
+    const exam_id=req.body.exam_id;
+    const marks=req.body.marks;
+    db.query("UPDATE results SET user_id=?,exam_id=?,marks=? WHERE id=?",[user_id,exam_id,marks,exam_id+"_"+user_id],
+    (err,res)=>{
+        if(err) console.log(err);
+    })
 })
+
+app.post("/qualifications",(req,res)=>{
+    const user_id=req.body.user_id;
+    const exam_id=req.body.exam_id;
+    const date=req.body.date_attempted;
+    db.query("SELECT users.qualifications,job_roles.qualifications AS req FROM users,job_roles WHERE ROLE_ID=? AND id=?",[exam_id,user_id],
+    (err,rows,fields)=>{
+        if(err) console.log(err);
+        var req=rows[0].req.split(",");
+        var have=rows[0].qualifications.split(",");
+        var q=true;
+        for(var i=0;i<req.length;i++){
+            if(have.includes(req[i]))
+                continue;
+            q=false;
+            break;
+        }
+
+        if(q){
+            db.query("INSERT INTO results (id,user_id,exam_id,date_attempted) VALUES (?,?,?,?)",[exam_id+"_"+user_id,user_id,exam_id,date],
+            (err,ress)=>{
+                if(err && err.code=="ER_DUP_ENTRY"){
+                    q='recent';
+                }
+                res.send({qualified:q});
+            })
+        }
+        else
+            res.send({qualified:q});
+    })
+});

@@ -20,7 +20,7 @@ class JobCard extends Component{
                             <div className='flip-card-back'>
                                 Qualifications: {this.props.qualifications}<br></br>
                                 Exam duration: {this.props.duration}<br></br>
-                                Paper pattern: {this.props.pattern}
+                                Marks: {this.props.no_qs}
                             </div>
                         </div>
                     </div>

@@ -7,12 +7,16 @@ function Register(props){
     const [username,setUsername]=React.useState("");
     const [password,setPassword]=React.useState("");
     const [confPassword,setConfPassword]=React.useState("");
+    const [name,setName]=React.useState("");
+    const [qualifications,setQualifications]=React.useState("");
 
     const registerUser=()=>{
         if(password===confPassword){
             Axios.post('http://localhost:5000/register',{
                 username: username,
                 password: password,
+                name:name,
+                qualifications:qualifications
             });
             console.log('sent from frontend');
             /*if valid setLoggedIn true */
@@ -24,6 +28,9 @@ function Register(props){
     return(
         <>
             <div className='input-group-lg' onSubmit={() => alert('add to database')}>
+                
+                <input className='col-md-10 m-3' type="text" placeholder='Name' onChange={(e)=>setName(e.target.value)}></input>
+                <input className='col-md-10 m-3' type="text" placeholder='Qualifications' onChange={(e)=>setQualifications(e.target.value)}></input>
                 <input className='col-md-10 m-3' type="text" placeholder='User Name' onChange={(e)=>setUsername(e.target.value)}></input>
                 <input className='col-md-10 m-3' type='password' placeholder='Password' onChange={(e)=>setPassword(e.target.value)}></input>
                 <input className='col-md-10 m-3' type='text' placeholder='Confirm Password' onChange={(e)=>setConfPassword(e.target.value)}></input>

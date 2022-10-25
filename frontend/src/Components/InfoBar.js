@@ -1,13 +1,14 @@
-import {  useState,useEffect } from "react";
+import {  useState,useEffect, Component } from "react";
 
 function InfoBar(props){
-   
-    var time=props.time;
-    const [count,setCount]=useState(time);
+      
+    const [count,setCount]=useState(props.time);
     useEffect(()=>{
         setTimeout(()=>{
             if(count>0)
                 setCount(count-1);
+            else
+                props.setTimeUp(true);
         },1000);
     },[count]);
 

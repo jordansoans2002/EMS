@@ -19,23 +19,21 @@ function LandingPage() {
   };
 
   const [modalShow, setModalShow] = React.useState(false);
-  const [loggedIn,setLoggedIn] = React.useState(false);
   const [destination,setDestination]=useState("/home");
   
  function checkLogin(e,id){
-  if(!loggedIn){
+  if(localStorage.getItem('userid')==null){
     setDestination(id);
     setModalShow(true);
     e.preventDefault();
   }
- }
+}
 
   return (
     <>
       <Nav/>
       <LoginModal
         show={modalShow}//{modalShow || !loggedIn}
-        setlogin={setLoggedIn}
         onHide={() => setModalShow(false)}
         destination={destination}
       />
