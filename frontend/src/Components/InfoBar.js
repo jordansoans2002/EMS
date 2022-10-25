@@ -6,7 +6,8 @@ function InfoBar(props){
     const [count,setCount]=useState(time);
     useEffect(()=>{
         setTimeout(()=>{
-            setCount(count-1);
+            if(count>0)
+                setCount(count-1);
         },1000);
     },[count]);
 

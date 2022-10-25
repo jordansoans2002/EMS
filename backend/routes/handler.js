@@ -68,47 +68,44 @@ router.get('/exam-details/:id',(req,res)=>{
     })
 })
 
-router.get('/exam/id',(req,res)=>{
+router.get('/exam/:id',(req,res)=>{
     const id=req.params.id;
-    db.query("SELECT * FROM exams WHERE exam_id=?")//make database
-    const exam={
-        marks:0,
-        duration:1,
-        questions:[
-            {
-                multi: false,
-                opt: ["a", "b", "c", "d"],
-                qs: "who",
-                selected: [],
-                solution: ["a"]
-            }, {
-                multi: false,
-                opt: ["a", "b", "c", "d"],
-                qs: "what",
-                selected: [],
-                solution: ["b"]
-            }, {
-                multi: false,
-                opt: ["a", "b", "c", "d"],
-                qs: "where",
-                selected: [],
-                solution: ["c"]
-            }, {
-                multi: false,
-                opt: ["a", "b", "c", "d"],
-                qs: "why",
-                selected: [],
-                solution: ["d"]
-            }, {
-                multi: true,
-                opt: ["a", "b", "c", "d"],
-                qs: "how",
-                selected: [],
-                solution: ["a", "b", "c", "d"]
-            }
-        ]
-    };
-    res.end(JSON.stringify(exam));
+    db.query("SELECT * FROM ems.exam where exam_id=? order by question_id",[id],
+    (err,rows,field)=>{
+        if(err) console.log(err);
+        var questions=[];
+        for(var i=0;i<rows.length;i++){
+            //var opt=rows[i].
+            questions.push({
+                opt:[rows[i].a,rows[i].b,rows[i].c,rows[i].d],
+                qs:rows[i].question,
+                solution:rows[i].solution.split("",4),
+                multi:false,
+                selected:[]
+            });
+        }
+        const exam={
+            marks:5,
+            duration:rows[0].duration,
+            questions:questions
+        }
+        console.log(exam);
+        res.end(JSON.stringify(exam));
+    })//make database
+    // const exam={
+    //     marks:0,
+    //     duration:1,
+    //     questions:[
+    //         {
+    //             multi: false,
+    //             opt: ["a", "b", "c", "d"],
+    //             qs: "who",
+    //             selected: [],
+    //             solution: ["a"]
+    //         }
+    //     ]
+    // };
+    
 })
 
 //app.post("/register",(req,res)=>{
