@@ -3,46 +3,6 @@ import './question.css';
 import InfoBar from "./InfoBar";
 import { useParams } from "react-router-dom";
 
-const exam2=
-        {
-            name:"Software",
-            marks:0,
-            duration:3600,
-            questions:[
-                {
-                    multi: false,
-                    opt: ["a", "b", "c", "d"],
-                    qs: "who",
-                    selected: [],
-                    solution: ["a"]
-                }, {
-                    multi: false,
-                    opt: ["a", "b", "c", "d"],
-                    qs: "what",
-                    selected: [],
-                    solution: ["b"]
-                }, {
-                    multi: false,
-                    opt: ["a", "b", "c", "d"],
-                    qs: "where",
-                    selected: [],
-                    solution: ["c"]
-                }, {
-                    multi: false,
-                    opt: ["a", "b", "c", "d"],
-                    qs: "why",
-                    selected: [],
-                    solution: ["d"]
-                }, {
-                    multi: true,
-                    opt: ["a", "b", "c", "d"],
-                    qs: "how",
-                    selected: [],
-                    solution: ["a", "b", "c", "d"]
-                }
-            ]
-        };
-
 function AnswerQuestions(props){
     const {id}= useParams();
     useEffect(()=>{
@@ -64,10 +24,12 @@ function AnswerQuestions(props){
     });
 
     const fetchQuestions = async() => {
+        console.log("fetching data")
         const data= await fetch('/exam/'+id);
-        const ques= await data.json();
-        setExam(ques);
-        console.log('exam loaded');
+        //const ques= await data.json();
+        setExam(await data.json());
+        setQsNo(0);
+        console.log("got data",exam);
     }
 
     const [qsNo,setQsNo]=React.useState(0);
@@ -99,10 +61,10 @@ function AnswerQuestions(props){
     }
     function Options(){
         const [selected,setSelected] =React.useState(question.selected);
-        console.log('options loaded'+selected);
         return(
             <>
                 {question.opt.map((option)=>{
+                    if(option==''||option==null)return;//to filter blank options
                     return(
                         <div key={option} className="options col-md-10" onClick={()=>{setSelected([isSelected(option)])}}>
                             <div className={(question.selected.includes(option))?"bg-primary":"bg-light"}>
@@ -116,6 +78,7 @@ function AnswerQuestions(props){
             </>
         );
     } 
+    console.log(exam.duration)
     return(
         <>
             <InfoBar name={exam.name} time={exam.duration} questions={exam.questions.length}></InfoBar>
