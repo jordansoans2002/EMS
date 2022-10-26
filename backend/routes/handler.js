@@ -51,6 +51,10 @@ router.get('/home',(req,res)=>{
     );
 });
 
+router.get('/profile',(req,res)=>{
+    c
+})
+
 router.get('/exam-details/:id',(req,res)=>{
     const roleId=req.params.id;
     db.query("SELECT * FROM job_roles where role_id=?",[roleId],
