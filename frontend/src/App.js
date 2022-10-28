@@ -16,7 +16,7 @@ function App() {
         <Route path="/home" exact element={<LandingPage/>}/>
         <Route path="/exam-details/:id" exact element={<ExamDetails/>}/>
         <Route path="/exam/:id" exact element={<Exam/>}/>
-        <Route path='/result/:id' exact element={<Result/>}/>
+        <Route path='/result' exact element={<Result/>}/>
       </Routes>
     </Router>
   );

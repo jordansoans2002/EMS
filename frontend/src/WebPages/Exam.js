@@ -3,6 +3,7 @@ import './question.css';
 import InfoBar from "../Components/InfoBar";
 import Axios from 'axios';
 import { Link, useParams } from "react-router-dom";
+import Nav from "../Components/Nav";
 
 function Exam(props){
     const {id}= useParams();
@@ -97,7 +98,7 @@ function Exam(props){
             </>
         );
     } 
-    if(exam.name!="Exam Name" && localStorage.getItem('userid')!=null && localStorage.getItem("qualified")!=false && localStorage.getItem("qualified")!='recent'){
+    if(exam.name!="Exam Name" && localStorage.getItem('userid')!=null && localStorage.getItem("qualified")=='true'){
         return(
             <>
                 <InfoBar name={exam.name} time={exam.duration} setTimeUp={setTimeUp} questions={exam.questions.length}></InfoBar>
@@ -123,10 +124,13 @@ function Exam(props){
                     </div>
                 </div>
                 <div className="d-flex justify-content-center m-5">
-                    <Link to={"/result/"+id} className="btn btn-outline-primary btn-lg rounded" onClick={()=>submit()}>Submit</Link>
+                    <Link to={"/result"} className="btn btn-outline-primary btn-lg rounded" onClick={()=>submit()}>Submit</Link>
                 </div>
             </>
         );
+    }
+    else{
+        <Nav/>
     }
 }
 export default Exam;

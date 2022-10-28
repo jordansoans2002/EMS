@@ -3,6 +3,26 @@ const mysql = require('mysql');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const routesHandler = require('./routes/handler.js')
+const crypto = require('crypto');
+const algorithm = 'aes-256-cbc';
+const key = crypto.randomBytes(32);
+const iv = crypto.randomBytes(16);
+
+function encrypt(text) {
+    let cipher = crypto.createCipheriv('aes-256-cbc',Buffer.from(key), iv);
+    let encrypted = cipher.update(text);
+    encrypted = Buffer.concat([encrypted, cipher.final()]);
+    return { iv: iv.toString('hex'), encryptedData: encrypted.toString('hex') };
+}
+
+function decrypt(text) {
+    let iv = buffer.from(text.iv, 'hex');
+    let encryptedText = Buffer.from(text.encryptedData, 'hex');
+    let decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(key), iv);
+    let decrypted = decipher.update(encryptedText);
+    decrypted = Buffer.concat([decrypted, decipher.final()]);
+    return decrypted.toString();
+}
 
 const app = express();
 app.use(bodyParser.urlencoded({extended:false}));
@@ -31,29 +51,24 @@ db.connect((err)=>{
 
 app.post("/register",(req,res)=>{
     const username = req.body.username;
-    const password = req.body.password;
+    const password = ( req.body.password);
 
     db.query(
-        "SELECT * FROM users WHERE username=? and password=?",[username,password],
-        (err,result,field)=>{
-            if(result==0){
-                db.query(
-                    "INSERT INTO users (username,password) VALUES (?,?)",[username,password],
-                    (err,res)=> {
-                        if(err) console.log(err);
-                        else console.log(res);
-                    }
-                );
-                res.send("Successfully registered");
+        "INSERT INTO users (username,password) VALUES (?,?)",[username,password],
+        (err,result)=>{
+            var q;
+            if(err && err.code=="ER_DUP_ENTRY"){
+                q='dup';
             }
-            else res.send("username already exists");
+            console.log(err);
+            res.send({err:q});
         }
     );
 });
             
 app.post("/login",(req,res)=>{
     const username = req.body.username;
-    const password = req.body.password;
+    const password = (req.body.password);
     db.query(
         "SELECT * FROM users WHERE username=? and password=?",[username,password],
         (err,result,field)=> {

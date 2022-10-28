@@ -110,6 +110,7 @@ router.get('/exam/:id',(req,res)=>{
     
 })
 
+//unused no call from frontend
 router.get('/result/:id',(req,res)=>{
     const exam_id=req.params.id;
     db.query("SELECT marks FROM results where user_id=? and exam_id=?",[2,exam_id],

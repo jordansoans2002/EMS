@@ -7,6 +7,7 @@ function Login(props){
     const [username,setUsername]=React.useState("");
     const [password,setPassword]=React.useState("");
 
+    
     function loginUser(e){
         Axios.post('http://localhost:5000/login',{
             username: username,
@@ -24,9 +25,9 @@ function Login(props){
     return(
         <>
             <div className='input-group-lg'>
-                <input className='col-md-10 m-3' type="text" name="username" placeholder='User Name' onChange={(e)=>setUsername(e.target.value)}></input>
-                <input className='col-md-10 m-3' type='password' name="password" placeholder='Password' onChange={(e)=>setPassword(e.target.value)}></input>
-                <Link to={(props.destination==null)?"/home":"/exam-details/"+props.destination} className='btn btn-primary' onClick={(e)=>loginUser(e)}>Log in</Link>
+                <input className='col-md-10 m-3' onChange={(e)=>setUsername(e.target.value)} type="text" name="username" placeholder='User Name' ></input>
+                <input className='col-md-10 m-3'  onChange={(e)=>setPassword(e.target.value)} type='password' name="password" placeholder='Password'></input>
+                <Link to={(props.destination==null)?"/home":"/exam-details/"+props.destination} onClick={(e)=>loginUser(e)} className='btn btn-primary' >Log in</Link>
             </div>
         </>
     )

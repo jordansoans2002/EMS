@@ -1,6 +1,7 @@
 import React,{ Component,useEffect,useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Axios from 'axios';
+import Nav from "../Components/Nav";
 
 
 function ExamDetails(){
@@ -41,6 +42,7 @@ function ExamDetails(){
     if(jobRole.roleName!=null && localStorage.getItem('userid')!=null){
         return(
             <>
+                <Nav/>
                 <h1>{jobRole.roleName}</h1>
                 <div className="h3 my-3">Description: <br></br>{jobRole.description}</div>
                 <div className="h3 my-3">Qualification: <br></br>{jobRole.qualifications}</div>
